@@ -50,58 +50,15 @@ class EditableGoogleMapSelectableField extends EditableFormField {
 		);
 	}
 	public function getFormField() {
-		$lat = $this->getSetting('StartLant');
-		$long = $this->getSetting('StartLong');
-		$width = ($this->getSetting('MapWidth')) ? $this->getSetting('MapWidth') : '300px';
-		$height = ($this->getSetting('MapHeight')) ? $this->getSetting('MapHeight') : '300px';
-		$zoom = ($this->getSetting('StartZoom')) ? $this->getSetting('StartZoom') : '12';
 		Requirements::javascript("http://maps.google.com/maps?file=api&amp;v=2&amp;key=". self::$api_key ."&sensor=true");
-		Requirements::customScript(<<<JS
-			$(document).ready(function() {
-				
-				// default values
-				var map = new GMap2(document.getElementById("map"));
-				var center = new GLatLng($lat, $long);
-				var geocoder = new GClientGeocoder();
-				var marker = new GMarker(center, {draggable: true});
-
-				GEvent.addListener(marker, "dragend", function(overlay, point) {
-					var point = marker.getLatLng();
-					map.setCenter(point);
-					geocoder.getLocations(new GLatLng(point.y, point.x), function(response) {
-						if(response.Status.code == 200) {
-							$("input.googleMapAddressField").val(response.Placemark[0].address);
-							$("input[name=$this->Name]").val(response.Placemark[0].address);
-						}
-					});
-				});
-				
-				map.setCenter(center, $zoom);
-				map.addOverlay(marker);
-				map.addControl(new GMenuMapTypeControl());
-				map.addControl(new GSmallZoomControl3D());
-				
-				$("input.googleMapAddressField").focus(function() {
-					$(this).val("");
-				});
-				$("input.googleMapAddressSubmit").click(function() {
-					var address = $("input.googleMapAddressField").val();
-				 	geocoder.getLatLng(
-				 		address,
-				 		function(point) {
-				 			if (!point) {
-				 				alert(address + " not found");
-				 			} else {
-				 				map.setCenter(point,16);
-				 				marker.setPoint(point);
-				 			}
-				 		}
-					);
-					return false;
-				});
-			});
-JS
-);
+		Requirements::javascriptTemplate("googlemapselectionfield/javascript/GoogleMapSelectionField.js", array(
+			'Name' => $this->Name,
+			'DefaultLat' => $this->getSetting('StartLant'),
+			'DefaultLon' => $this->getSetting('StartLong'),
+			'MapWidth' => ($this->getSetting('MapWidth')) ? $this->getSetting('MapWidth') : '300px',
+			'MapHeight' => ($this->getSetting('MapHeight')) ? $this->getSetting('MapHeight') : '300px',
+			'Zoom' => ($this->getSetting('StartZoom')) ? $this->getSetting('StartZoom') : '12'
+		));
 		return new GoogleMapSelectableField($this->Name, $this->Title);
 	}
 }
