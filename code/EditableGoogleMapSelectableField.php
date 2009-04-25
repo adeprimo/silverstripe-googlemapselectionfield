@@ -23,7 +23,7 @@ class EditableGoogleMapSelectableField extends EditableFormField {
 		for($i = 1; $i < 20; $i++) {
 			$message = ($i == 1) ? _t('EditableFormField.LOWEST', 'Lowest') : "";
 			$message = ($i == 19) ? _t('EditableFormField.HIGHEST', 'Highest') : $message;
-			$zoomLevels[$i] = $i . ' - '. $message;
+			$zoomLevels[$i] = ($message) ? $i .' - '. $message : $i;
 		}
 		return new FieldSet(
 			new TextField(
@@ -52,8 +52,9 @@ class EditableGoogleMapSelectableField extends EditableFormField {
 	public function getFormField() {
 		$lat = $this->getSetting('StartLant');
 		$long = $this->getSetting('StartLong');
-		$width = ($this->getSetting('MapWidth')) ? $this->getSetting('MapWidth') : 300;
-		$height = ($this->getSetting('MapHeight')) ? $this->getSetting('MapHeight') : 300;
+		$width = ($this->getSetting('MapWidth')) ? $this->getSetting('MapWidth') : '300px';
+		$height = ($this->getSetting('MapHeight')) ? $this->getSetting('MapHeight') : '300px';
+		$zoom = ($this->getSetting('StartZoom')) ? $this->getSetting('StartZoom') : '12';
 		Requirements::javascript("http://maps.google.com/maps?file=api&amp;v=2&amp;key=". self::$api_key ."&sensor=true");
 		Requirements::customScript(<<<JS
 			$(document).ready(function() {
@@ -75,7 +76,7 @@ class EditableGoogleMapSelectableField extends EditableFormField {
 					});
 				});
 				
-				map.setCenter(center, 13);
+				map.setCenter(center, $zoom);
 				map.addOverlay(marker);
 				map.addControl(new GMenuMapTypeControl());
 				map.addControl(new GSmallZoomControl3D());
