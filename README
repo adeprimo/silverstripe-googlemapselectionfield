@@ -1,0 +1,30 @@
+###############################################
+GoogleMap Selection Field Module
+###############################################
+
+Maintainer Contact
+-----------------------------------------------
+Will Rossiter
+<will (at) silverstripe (dot) com>
+
+Requirements
+-----------------------------------------------
+- User Forms Modules (> 0.1)
+
+Documentation
+-----------------------------------------------
+
+Installation Instructions
+-----------------------------------------------
+- Enter your google map API key in your mysite/_config.php file like
+EditableGoogleMapSelectableField::$api_key = YOUR API KEY HERE;
+
+Usage Overview
+-----------------------------------------------
+
+Known issues
+-----------------------------------------------
+
+Future works
+-----------------------------------------------
+- Save the Long / Lat as well as address
