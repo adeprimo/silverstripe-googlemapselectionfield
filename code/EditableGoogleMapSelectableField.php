@@ -28,24 +28,24 @@ class EditableGoogleMapSelectableField extends EditableFormField {
 		return new FieldSet(
 			new TextField(
 				"Fields[$this->ID][CustomSettings][StartLant]", _t('EditableFormField.STARTLATITUDE', 'Starting Point Latitude'), 
-				$this->getSetting('StartLant')
+				($this->getSetting('StartLant')) ? $this->getSetting('StartLant') : '10'
 			),
 			new TextField(
 				"Fields[$this->ID][CustomSettings][StartLong]", _t('EditableFormField.STARTLONGITUDE', 'Starting Point Longitude'),
-				$this->getSetting('StartLong')
+				($this->getSetting('StartLong')) ? $this->getSetting('StartLong') : '10'
 			),
 			new DropdownField(
 				"Fields[$this->ID][CustomSettings][StartZoom]", _t('EditableFormField.STARTZOOM', 'Starting Zoom Level'),
 				$zoomLevels,
-				$this->getSetting('StartZoom')
+				($this->getSetting('StartZoom')) ? $this->getSetting('StartZoom') : '1'
 			),
 			new TextField(
 				"Fields[$this->ID][CustomSettings][MapWidth]", _t('EditableFormField.MAPWIDTH', 'Map Width'),
-				$this->getSetting('MapWidth')
+				($this->getSetting('MapWidth')) ? $this->getSetting('MapWidth') : '300'
 			),
 			new TextField(
 				"Fields[$this->ID][CustomSettings][MapHeight]", _t('EditableFormField.MAPHEIGHT', 'Map Height'),
-				$this->getSetting('MapHeight')				
+				($this->getSetting('MapHeight')) ? $this->getSetting('MapWidth') : '300'
 			)
 		);
 	}
