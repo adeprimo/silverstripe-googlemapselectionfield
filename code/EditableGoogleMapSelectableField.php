@@ -61,5 +61,14 @@ class EditableGoogleMapSelectableField extends EditableFormField {
 		));
 		return new GoogleMapSelectableField($this->Name, $this->Title);
 	}
+	
+	/**
+	 * Return a formated output
+	 */
+	public function getValueFromData($data) {
+		$address = (isset($data[$this->Name])) ? $data[$this->Name] : _t('EditableFormField.UNKNOWN', 'Unknown');
+		$url = (isset($data[$this->Name.'_MapURL'])) ? ' ('. $data[$this->Name.'_MapURL'] .')': "";
+		return $address . $url; 
+	}
 }
 ?>

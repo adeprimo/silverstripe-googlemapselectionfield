@@ -37,10 +37,12 @@ class GoogleMapSelectableField extends FormField {
 	function Field() {
 		return "
 			<div class=\"field text\">
-			<label class=\"left\">$this->Title</label>
-			<input type=\"text\" id=\"{$this->id()}\" name=\"{$this->name}\" value=\"". _t('EditableFormField.ENTERADDRESS', 'Enter Address') ."\" class=\"text googleMapAddressField\"/>
-			<input type=\"submit\" value=\"". _t('EditableFormField.GO', 'Go') ."\" class=\"submit googleMapAddressSubmit\" />
-			<div id=\"map_{$this->name}\" style=\"width: $this->width; height: $this->height;\"></div>";
+				<label class=\"left\">$this->Title</label>
+				<input type=\"text\" id=\"{$this->id()}\" name=\"{$this->name}\" value=\"". _t('EditableFormField.ENTERADDRESS', 'Enter Address') ."\" class=\"text googleMapAddressField\"/>
+				<input type=\"submit\" value=\"". _t('EditableFormField.GO', 'Go') ."\" class=\"submit googleMapAddressSubmit\" />
+				<input type=\"hidden\" id=\"{$this->id()}_MapURL\" name=\"{$this->name}_MapURL\" />
+				<div id=\"map_{$this->name}\" style=\"width: $this->width; height: $this->height;\"></div>
+			</div>";
 	}
 }
 ?>

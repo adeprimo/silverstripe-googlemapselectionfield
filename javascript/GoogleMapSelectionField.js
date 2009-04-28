@@ -5,7 +5,7 @@ $(document).ready(function() {
 	var center = new GLatLng($DefaultLat, $DefaultLon);
 	var geocoder = new GClientGeocoder();
 	var marker = new GMarker(center, {draggable: true});
-	
+
 	map.setCenter(center, $Zoom);
 	map.addOverlay(marker);
 	map.addControl(new GMenuMapTypeControl());
@@ -17,12 +17,15 @@ $(document).ready(function() {
 		geocoder.getLocations(new GLatLng(point.y, point.x), function(response) {
 			if(response.Status.code == 200) {
 				$("input[name=$Name]").val(response.Placemark[0].address);
+				$("input[name=$Name_MapURL]").val("http://maps.google.com/?ll=" + point.toUrlValue() +"&q="+ point.toUrlValue() +"&z="+ map.getZoom());
 			}
 		});
 	});
 
 	$("input[name=$Name]").focus(function() {
-		$(this).val("");
+		if($(this).val() == $(this).attr("value")) {
+			$(this).val("");	
+		}
 	});
 	$("input.googleMapAddressSubmit").click(function() {
 		var address = $("input.googleMapAddressField").val();
