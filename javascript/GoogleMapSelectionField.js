@@ -17,7 +17,8 @@ $(document).ready(function() {
 		geocoder.getLocations(new GLatLng(point.y, point.x), function(response) {
 			if(response.Status.code == 200) {
 				$("input[name=$Name]").val(response.Placemark[0].address);
-				$("input[name=$Name_MapURL]").val("http://maps.google.com/?ll=" + point.toUrlValue() +"&q="+ point.toUrlValue() +"&z="+ map.getZoom());
+				var link = "http://maps.google.com/?ll=" + point.toUrlValue() +"&q="+ point.toUrlValue() +"&z="+ map.getZoom();
+				$("input[name=$Name_MapURL]").val("<a href=" + link +">"+ link +"</a>");
 			}
 		});
 	});
