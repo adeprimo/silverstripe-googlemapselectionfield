@@ -18,14 +18,15 @@ class EditableGoogleMapSelectableField extends EditableFormField {
 		return 'googlemapselectionfield/images/' . strtolower($this->class) . '.png';	
 	}
 	
-	public function ExtraOptions() {
+	public function getFieldConfiguration() {
 		$zoomLevels = array();
 		for($i = 1; $i < 20; $i++) {
 			$message = ($i == 1) ? _t('EditableFormField.LOWEST', 'Lowest') : "";
 			$message = ($i == 19) ? _t('EditableFormField.HIGHEST', 'Highest') : $message;
 			$zoomLevels[$i] = ($message) ? $i .' - '. $message : $i;
 		}
-		return new FieldSet(
+		$fields = parent::getFieldConfiguration();
+		$fields->merge(new FieldSet(
 			new TextField(
 				"Fields[$this->ID][CustomSettings][StartLant]", _t('EditableFormField.STARTLATITUDE', 'Starting Point Latitude'), 
 				($this->getSetting('StartLant')) ? $this->getSetting('StartLant') : '10'
@@ -47,7 +48,8 @@ class EditableGoogleMapSelectableField extends EditableFormField {
 				"Fields[$this->ID][CustomSettings][MapHeight]", _t('EditableFormField.MAPHEIGHT', 'Map Height'),
 				($this->getSetting('MapHeight')) ? $this->getSetting('MapWidth') : '300'
 			)
-		);
+		));
+		return $fields;
 	}
 	public function getFormField() {
 		Requirements::javascript("http://maps.google.com/maps?file=api&amp;v=2&amp;key=". self::$api_key ."&sensor=true");
