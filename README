@@ -9,7 +9,7 @@ Will Rossiter
 
 Requirements
 -----------------------------------------------
-- User Forms Modules (> 0.1)
+- User Forms Modules (0.2 or greater for editable google map selectableField
 
 Documentation
 -----------------------------------------------
@@ -17,6 +17,7 @@ Documentation
 Installation Instructions
 -----------------------------------------------
 - Enter your google map API key in your mysite/_config.php file like
+
 EditableGoogleMapSelectableField::$api_key = YOUR API KEY HERE;
 
 Usage Overview
