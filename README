@@ -18,7 +18,7 @@ Installation Instructions
 -----------------------------------------------
 - Enter your google map API key in your mysite/_config.php file like
 
-EditableGoogleMapSelectableField::$api_key = YOUR API KEY HERE;
+EditableGoogleMapSelectableField::$api_key = "YOUR API KEY HERE";
 
 Usage Overview
 -----------------------------------------------
