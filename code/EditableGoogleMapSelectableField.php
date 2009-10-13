@@ -42,26 +42,22 @@ class EditableGoogleMapSelectableField extends EditableFormField {
 			),
 			new TextField(
 				"Fields[$this->ID][CustomSettings][MapWidth]", _t('EditableFormField.MAPWIDTH', 'Map Width'),
-				($this->getSetting('MapWidth')) ? $this->getSetting('MapWidth') : '300'
+				($this->getSetting('MapWidth')) ? $this->getSetting('MapWidth') : '300px'
 			),
 			new TextField(
 				"Fields[$this->ID][CustomSettings][MapHeight]", _t('EditableFormField.MAPHEIGHT', 'Map Height'),
-				($this->getSetting('MapHeight')) ? $this->getSetting('MapWidth') : '300'
+				($this->getSetting('MapHeight')) ? $this->getSetting('MapWidth') : '300px'
 			)
 		));
 		return $fields;
 	}
 	public function getFormField() {
-		Requirements::javascript("http://maps.google.com/maps?file=api&amp;v=2&amp;key=". self::$api_key ."&sensor=true");
-		Requirements::javascriptTemplate("googlemapselectionfield/javascript/GoogleMapSelectionField.js", array(
-			'Name' => $this->Name,
-			'DefaultLat' => $this->getSetting('StartLant'),
-			'DefaultLon' => $this->getSetting('StartLong'),
-			'MapWidth' => ($this->getSetting('MapWidth')) ? $this->getSetting('MapWidth') : '300px',
-			'MapHeight' => ($this->getSetting('MapHeight')) ? $this->getSetting('MapHeight') : '300px',
-			'Zoom' => ($this->getSetting('StartZoom')) ? $this->getSetting('StartZoom') : '12'
-		));
-		return new GoogleMapSelectableField($this->Name, $this->Title);
+		return new GoogleMapSelectableField($this->Name, $this->Title, 
+			$this->getSetting('StartLant'),
+			$this->getSetting('StartLong'),
+			$this->getSetting('MapWidth'),
+			$this->getSetting('MapHeight'),
+			$this->getSetting('StartZoom'));
 	}
 	
 	/**

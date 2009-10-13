@@ -11,38 +11,48 @@
  */
 
 class GoogleMapSelectableField extends FormField {
-	
-	protected $width = "300px";
-	
-	protected $height = "300px";
+
+	/**
+	 * @var Mixed
+	 */
+	private $startLat, $startLong, $mapWidth, $mapHeight, $zoom;
 	
 	/**
-	 * Set the width of this field
-	 *
-	 * @param String Width
+	 * @param String - Name of Field
+	 * @param String - Title for Field
+	 * @param Int - Start Latitude
+	 * @param Int - Starting Map Longitude
+	 * @param String - Width of map (px or % to be included)
+	 * @param String - Height of map (px or % to be included)
+	 * @param Int - Zoom Level (1 to 12)
 	 */
-	public function setWidth($width) {
-		$this->width = $width;
+	function __construct($name = "", $title = "", $startLat = 0, $startLong = 0, $mapWidth = '300px', $mapHeight = '300px', $zoom = '2') {
+		parent::__construct($name, $title);
+		$this->startLat = $startLat;
+		$this->startLong = $startLong;
+		$this->mapWidth = $mapWidth;
+		$this->mapHeight = $mapHeight;
+		$this->zoom = $zoom;
 	}
 	
-	/**
-	 * Set the height of this field
-	 *
-	 * @param String 
-	 */
-	public function setHeight($height) {
-		$this->height = $height;
-	}
 	
 	function Field() {
+		Requirements::javascript("http://maps.google.com/maps?file=api&amp;v=2&amp;key=". EditableGoogleMapSelectableField::$api_key ."&sensor=true");
+		Requirements::javascriptTemplate("googlemapselectionfield/javascript/GoogleMapSelectionField.js", array(
+			'Name' => $this->name,
+			'DefaultLat' => $this->startLat,
+			'DefaultLon' => $this->startLong,
+			'MapWidth' => $this->mapWidth,
+			'MapHeight' => $this->mapHeight,
+			'Zoom' => $this->zoom
+		));
 		return "
-			<div class=\"field text\">
+			<div class=\"field text googleMapField\">
 				<label class=\"left\">$this->Title</label>
-				<input type=\"text\" id=\"{$this->id()}\" name=\"{$this->name}\" value=\"". _t('EditableFormField.ENTERADDRESS', 'Enter Address') ."\" class=\"text googleMapAddressField\"/>
+				<input type=\"text\" id=\"{$this->id()}\" name=\"{$this->name}\" value=\"". _t('GoogleMapSelectableField.ENTERADDRESS', 'Enter Address') ."\" class=\"text googleMapAddressField\"/>
 				<input type=\"submit\" value=\"". _t('EditableFormField.GO', 'Go') ."\" class=\"submit googleMapAddressSubmit\" />
 				<input type=\"hidden\" id=\"{$this->id()}_MapURL\" name=\"{$this->name}_MapURL\" />
-				<div id=\"map_{$this->name}\" style=\"width: $this->width; height: $this->height;\"></div>
+				<div id=\"map_{$this->name}\" style=\"width: $this->mapWidth; height: $this->mapHeight;\"></div>
 			</div>";
 	}
 }
-?>
