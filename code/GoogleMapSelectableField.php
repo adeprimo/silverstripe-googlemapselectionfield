@@ -33,6 +33,8 @@ class GoogleMapSelectableField extends FormField {
 		$this->mapWidth = $mapWidth;
 		$this->mapHeight = $mapHeight;
 		$this->zoom = $zoom;
+		if(strpos($this->mapWidth, 'px') === false && strpos($this->mapWidth, '%') === false) $this->mapWidth .= "px";
+		if(strpos($this->mapHeight, 'px') === false && strpos($this->mapHeight, '%') === false) $this->mapHeight .= "px";
 	}
 	
 	
