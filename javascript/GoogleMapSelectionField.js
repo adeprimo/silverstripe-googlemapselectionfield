@@ -1,17 +1,25 @@
 (function($) {
 	$(document).ready(function() {
 	
+		$("input[name=$Name_MapURL]").val("");
+		$('#Form_Form').submit(function() {
+			var checkval = $("input[name=$Name_MapURL]").val();
+			if( checkval == "" && $("#EditableGoogleMapSelectableField38").attr("class") == "field googlemapselectable  requiredField"){
+				alert("please click 'Go' to check address in the map");
+				return false;
+			}
+		});
+		
 		// default values
 		var map = new GMap2(document.getElementById("map_$Name"));
 		var center = new GLatLng($DefaultLat, $DefaultLon);
 		var geocoder = new GClientGeocoder();
 		var marker = new GMarker(center, {draggable: true});
-
 		map.setCenter(center, $Zoom);
 		map.addOverlay(marker);
 		map.addControl(new GMenuMapTypeControl());
 		map.addControl(new GSmallZoomControl3D());
-
+		
 		GEvent.addListener(marker, "dragend", function(overlay, point) {
 			var point = marker.getLatLng();
 			map.setCenter(point);
@@ -38,6 +46,7 @@
 		 			} else {
 		 				map.setCenter(point,16);
 		 				marker.setPoint(point);
+						$("input[name=$Name_MapURL]").val("http://maps.google.com/?ll=" + point.toUrlValue() +"&q="+ point.toUrlValue() +"&z="+ map.getZoom());
 		 			}
 		 		}
 			);
