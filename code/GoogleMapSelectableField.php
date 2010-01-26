@@ -29,8 +29,8 @@ class GoogleMapSelectableField extends FormField {
 	function __construct($name = "", $title = "", $startLat = 0, $startLong = 0, $mapWidth = '300px', $mapHeight = '300px', $zoom = '2') {
 		if(strpos($mapWidth, 'px') === false && strpos($mapWidth, '%') === false) $mapWidth .= "px";
 		if(strpos($mapHeight, 'px') === false || strpos($mapHeight, '%') !== false){
-			$mapHeight = str_replace("%","px",$mapHeight);
-			
+			$mapHeight = str_replace("%","",$mapHeight);
+			$mapHeight .= "px";
 		}
 		parent::__construct($name, $title);
 		$this->startLat = $startLat;
