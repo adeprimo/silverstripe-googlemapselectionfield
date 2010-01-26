@@ -1,10 +1,10 @@
 (function($) {
 	$(document).ready(function() {
 	
-		$("input[name=$Name_MapURL]").val("");
+		$("input[name=$Name_MapURL]").val("User did not generate a Url as the field is not required");
 		$('#Form_Form').submit(function() {
 			var checkval = $("input[name=$Name_MapURL]").val();
-			if( checkval == "" && $("#EditableGoogleMapSelectableField38").attr("class") == "field googlemapselectable  requiredField"){
+			if( checkval == "User did not generate a Url as the field is not required" && $("#EditableGoogleMapSelectableField38").attr("class") == "field googlemapselectable  requiredField"){
 				alert("please click 'Go' to check address in the map");
 				return false;
 			}
