@@ -46,7 +46,7 @@ class EditableGoogleMapSelectableField extends EditableFormField {
 			),
 			new TextField(
 				"Fields[$this->ID][CustomSettings][MapHeight]", _t('EditableFormField.MAPHEIGHT', 'Map Height'),
-				($this->getSetting('MapHeight')) ? $this->getSetting('MapWidth') : '300px'
+				($this->getSetting('MapHeight')) ? $this->getSetting('MapHeight') : '300px'
 			)
 		));
 		return $fields;
