@@ -27,14 +27,18 @@ class GoogleMapSelectableField extends FormField {
 	 * @param Int - Zoom Level (1 to 12)
 	 */
 	function __construct($name = "", $title = "", $startLat = 0, $startLong = 0, $mapWidth = '300px', $mapHeight = '300px', $zoom = '2') {
+		if(strpos($mapWidth, 'px') === false && strpos($mapWidth, '%') === false) $mapWidth .= "px";
+		if(strpos($mapHeight, 'px') === false || strpos($mapHeight, '%') !== false){
+			$mapHeight = str_replace("%","px",$mapHeight);
+			
+		}
 		parent::__construct($name, $title);
 		$this->startLat = $startLat;
 		$this->startLong = $startLong;
 		$this->mapWidth = $mapWidth;
 		$this->mapHeight = $mapHeight;
 		$this->zoom = $zoom;
-		if(strpos($this->mapWidth, 'px') === false && strpos($this->mapWidth, '%') === false) $this->mapWidth .= "px";
-		if(strpos($this->mapHeight, 'px') === false || strpos($this->mapHeight, '%')) $this->mapHeight .= "px";
+		
 	}
 	
 	
