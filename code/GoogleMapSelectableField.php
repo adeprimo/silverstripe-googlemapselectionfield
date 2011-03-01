@@ -43,7 +43,7 @@ class GoogleMapSelectableField extends FormField {
 	
 	
 	function Field() {
-		Requirements::javascript("http://maps.google.com/maps?file=api&amp;v=2&amp;key=". EditableGoogleMapSelectableField::$api_key ."&amp;sensor=true");
+		Requirements::javascript("http://maps.google.com/maps/api/js?sensor=true");
 		Requirements::javascriptTemplate("googlemapselectionfield/javascript/GoogleMapSelectionField.js", array(
 			'Name' => $this->name,
 			'DefaultLat' => $this->startLat,
