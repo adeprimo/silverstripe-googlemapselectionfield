@@ -1,5 +1,1 @@
-<?php
-
-// ENTER YOUR API KEY IN YOUR MYSITE/_CONFIG.PHP
-
-?>
+<?php ?>

@@ -12,10 +12,8 @@ class EditableGoogleMapSelectableField extends EditableFormField {
 	
 	static $plural_name = 'Google Maps';
 	
-	static $api_key = "";
-	
 	public function Icon()  {
-		return 'googlemapselectionfield/images/' . strtolower($this->class) . '.png';	
+		return 'googlemapselectionfield/images/' . strtolower($this->class) . '.png';
 	}
 	
 	public function getFieldConfiguration() {

@@ -58,6 +58,9 @@ class GoogleMapSelectableField extends FormField {
 				<input type=\"text\" id=\"{$this->id()}\" name=\"{$this->name}\" value=\"". _t('GoogleMapSelectableField.ENTERADDRESS', 'Enter Address') ."\" class=\"text googleMapAddressField\"/>
 				<input type=\"submit\" value=\"". _t('EditableFormField.GO', 'Go') ."\" class=\"submit googleMapAddressSubmit\" />
 				<input type=\"hidden\" id=\"{$this->id()}_MapURL\" name=\"{$this->name}_MapURL\" />
+				<input type=\"hidden\" id=\"{$this->id()}_MapLat\" name=\"{$this->name}_MapLat\" />
+				<input type=\"hidden\" id=\"{$this->id()}_MapLng\" name=\"{$this->name}_MapLng\" />
+				<input type=\"hidden\" id=\"{$this->id()}_MapZoom\" name=\"{$this->name}_MapZoom\" />
 				<div id=\"map_{$this->name}\" style=\"width: $this->mapWidth; height: $this->mapHeight;\"></div>
 			</div>";
 	}
