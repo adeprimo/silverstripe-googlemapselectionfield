@@ -6,6 +6,15 @@
                 $("input[name=$Name_MapLat]").val(point.lat());
                 $("input[name=$Name_MapLng]").val(point.lng());
                 $("input[name=$Name_MapZoom]").val(zoom);
+            },
+            geocodeNewPosition: function(map, point) {
+                geocoder.geocode( {'latLng': point } , function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        $("input[name=$Name]").val(results[0].formatted_address);
+                        var loca = (results[0].geometry.location);
+                        methods.appendResultToDom(point, map.getZoom());
+                    }
+                });
             }
         }
 
@@ -28,7 +37,7 @@
 				style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
 			},
 			navigationControlOptions: {
-				style: google.maps.NavigationControlStyle.SMALL
+				style: google.maps.NavigationControlStyle.ZOOM_PAN
 			},
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
@@ -42,17 +51,15 @@
 			draggable: true
 		});
 
+        google.maps.event.addListener(map, 'click', function(event) {
+            marker.setPosition(event.latLng);
+            methods.geocodeNewPosition(map, event.latLng);
+        });
+
 		google.maps.event.addListener(marker, 'dragend', function(overlay, point) {
 			var point = marker.getPosition();
 			map.setCenter(point);
-			geocoder.geocode( {'latLng': point } , function(results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-					map.setCenter(results[0].geometry.location);
-					$("input[name=$Name]").val(results[0].formatted_address);
-					var loca = (results[0].geometry.location);
-                    methods.appendResultToDom(point, map.getZoom());
-				}
-			});
+            methods.geocodeNewPosition(map, point);
 		});
 
 		$("input[name=$Name]").focus(function() {
@@ -66,10 +73,11 @@
 				if (status == google.maps.GeocoderStatus.OK) {
 					var point = results[0].geometry.location;
 					map.setCenter(results[0].geometry.location);
+                    map.setZoom(12);
 					marker.setPosition(results[0].geometry.location);
                     methods.appendResultToDom(point, map.getZoom());
 				} else {
-		 			alert(address + " not found");
+		 			alert(address + " kunde inte hittas.");
 		 		}
 			});
 			return false;
