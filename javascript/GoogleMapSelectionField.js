@@ -51,6 +51,14 @@
 			draggable: true
 		});
 
+    var mapLoaded = false;
+    google.maps.event.addListener(map, 'tilesloaded', function() {
+      if (typeof mapInit != "undefined" && mapLoaded == false) {
+        mapLoaded = true;
+        mapInit();
+      }
+    });
+
         google.maps.event.addListener(map, 'click', function(event) {
             marker.setPosition(event.latLng);
             methods.geocodeNewPosition(map, event.latLng);
